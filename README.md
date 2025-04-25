@@ -1,150 +1,195 @@
 
-# 🔐 Auth Template App (Next.js + Express + MongoDB)
+# Auth Template with Next.js, Express, and MongoDB
 
-A full-stack authentication boilerplate for personal or professional projects. This app separates the frontend and backend, offering a scalable architecture with JWT-based authentication and secure routes.
+This is a full-stack authentication template using **Next.js**, **Express.js**, and **MongoDB**. It provides basic authentication features such as sign-up, login, and JWT authentication, and can be used as a starting point for any full-stack web application.
 
----
+### Features
 
-## 📦 Tech Stack
+- **Frontend** (Next.js):
+  - React-based UI for registration and login
+  - State management with `Zustand`
+  - Error handling and toast notifications
+  - Simple page redirection on successful login
 
-### 🧠 Frontend
-- **Next.js 14+**
-- **Zustand** – Global state management
-- **Axios** – API handling
-- **TailwindCSS** – Styling
-- **React Hot Toast** – Notifications
-
-### 🚀 Backend
-- **Node.js + Express**
-- **MongoDB + Mongoose**
-- **Multer** – File upload support (ready for extension)
-- **bcrypt** – Password hashing
-- **jsonwebtoken** – Secure session management
+- **Backend** (Express):
+  - Authentication via JWT (JSON Web Token)
+  - MongoDB-based user storage
+  - REST API routes for user authentication
+  - File upload support (using Cloudinary for media)
 
 ---
 
-## ✅ Features
+## Table of Contents
 
-### 🔐 Authentication
-- Signup / Login / Logout
-- JWT-based auth with HTTP-only cookie
-- Secure protected routes
-- Auto-refresh token on page load
-
-### 👤 User State
-- Zustand global state to manage loading, auth user, and errors
-- Toasts for user feedback
-
-### 🌐 API Routing
-- **Frontend** communicates only with backend (`/api/auth`)
-- Error handling for both expected (401, 403) and unexpected errors
-
-### 🧱 Clean Project Structure
-- Modular Express routes
-- MVC-style controllers on backend
-- Frontend hooks in `useAuthStore`
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Installation](#installation)
+- [Folder Structure](#folder-structure)
+- [Environment Configuration](#environment-configuration)
+- [Usage](#usage)
+- [TLDR (For Quick Reference)](#tldr-for-quick-reference)
 
 ---
 
-## 🛠️ Installation
+## Tech Stack
+
+- **Frontend:**  
+  - Next.js
+  - Zustand (State Management)
+  - Axios (HTTP Requests)
+  - Tailwind CSS (for styling)
+
+- **Backend:**  
+  - Express.js
+  - MongoDB
+  - JWT (JSON Web Token) for authentication
+  - Cloudinary (for file uploads)
+
+---
+
+## Installation
+
+### 1. **Frontend (Client) Setup**
+
+- Navigate to the **`client`** folder.
+- Install the required packages using `npm`:
 
 ```bash
-# Clone the repo
-git clone https://github.com/yourusername/auth-template.git
-cd auth-template
+cd client
+npm install
+```
 
-# Install backend dependencies
+In the frontend code, the **axios base URL** is directly set to point to the backend Express server at `http://localhost:5000`. You don't need a `.env.local` in the client anymore since it's hardcoded inside the code.
+
+### 2. **Backend (Server) Setup**
+
+- Navigate to the **`server`** folder.
+- Install the required packages:
+
+```bash
 cd server
 npm install
-
-# Run backend server
-npm run dev
-
-# In another terminal, install frontend dependencies
-cd ../client
-npm install
-
-# Run frontend server
-npm run dev
 ```
 
----
+- Create a `.env` file in the **`server`** folder and configure the necessary environment variables:
 
-## 📁 Folder Structure
-
-```
-auth-template/
-│
-├── client/                # Next.js Frontend
-│   ├── pages/
-│   ├── hooks/useAuthStore.ts
-│   ├── utils/axiosInstance.ts
-│   └── ...
-│
-├── server/                # Express Backend
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   └── models/
-│   └── ...
-```
-
----
-
-## 🌱 Environment Variables
-
-### Frontend `.env.local`
-```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
-```
-
-### Backend `.env`
-```
+```env
+MONGO_URI=mongodb://localhost:27017/authTemp
 PORT=5000
-MONGO_URI=your-mongodb-url
-JWT_SECRET=your-jwt-secret
+JWT_SECRET=b9885c9717aa494ab5a3c4a6d12b7d78077366eb85b002618ecef6413856a59d
+CLOUDINARY_CLOUD_NAME=diywglw4g
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
+```
+
+Make sure to replace the `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET` with your actual Cloudinary credentials.
+
+---
+
+## Folder Structure
+
+### Frontend (Client)
+
+```
+/client
+  /components
+    - Form.js
+    - Header.js
+  /pages
+    - /login.js
+    - /signup.js
+  /store
+    - useAuthStore.js
+  package.json
+  tailwind.config.js
+```
+
+### Backend (Server)
+
+```
+/server
+  /controllers
+    - authController.js
+  /routes
+    - authRoutes.js
+  /models
+    - User.js
+  /middlewares
+    - authMiddleware.js
+  /config
+    - cloudinary.js
+  .env
+  package.json
 ```
 
 ---
 
-## 🔒 Secure Practices
-- Passwords hashed with bcrypt
-- Tokens stored in HTTP-only cookies
-- Express error middleware handles sensitive messages
-- CORS policy defined clearly
+## Environment Configuration
 
----
+### Backend (.env)
 
-## 📄 Future Extensions
-- Add Google OAuth or GitHub OAuth
-- Add file uploads with Multer
-- Add role-based access control
-- Protect client-side routes with middleware
-
----
-
-## 🧪 Local Testing
-- Use Postman for direct API testing
-- Use `Zustand Devtools` in browser
-- Use `console.log` and `console.error` to debug both backend & frontend (allowed in dev mode)
-
----
-
-## ✅ TL;DR (What's Inside)
-
-```
-✅ Next.js frontend with Zustand + Tailwind
-✅ Express.js backend with JWT Auth
-✅ MongoDB + Mongoose models
-✅ Login, Signup, Protected Routes
-✅ Global state management
-✅ Toasts for UX feedback
-✅ Clean folder structure (MVC + modular)
-✅ Ready for Multer file uploads
-✅ HTTP-only cookies for secure auth
+```env
+MONGO_URI=mongodb://localhost:27017/authTemp
+PORT=5000
+JWT_SECRET=b9885c9717aa494ab5a3c4a6d12b7d78077366eb85b002618ecef6413856a59d
+CLOUDINARY_CLOUD_NAME=diywglw4g
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
 ```
 
+Replace the placeholder values for Cloudinary with your actual API key and secret.
+
 ---
 
-Made with ❤️ by Yashodeep.
+## Usage
+
+1. **Start Backend**  
+   From the `server` folder, start the Express server:
+
+```bash
+cd server
+npm run dev
+```
+
+This will run the Express backend on `http://localhost:5000`.
+
+2. **Start Frontend**  
+   From the `client` folder, start the Next.js development server:
+
+```bash
+cd client
+npm run dev
+```
+
+The frontend will now be running at `http://localhost:3000`.
+
+---
+
+## TLDR (For Quick Reference)
+
+- **Frontend:**
+  - Uses **Next.js** and **Zustand** for state management.
+  - Axios is configured to connect to the backend via the hardcoded URL `http://localhost:5000` in the code.
+  - Basic pages: Login, Signup.
+  
+- **Backend:**
+  - **Express.js** handles API requests (signup, login).
+  - **MongoDB** for user data storage.
+  - **JWT** used for authentication.
+  - **Cloudinary** for file upload handling.
+
+- **Environment Variables**:
+  - **Frontend**: No `.env.local` required. The frontend connects directly to `http://localhost:5000` (Express server).
+  - **Backend**: `.env` configures `MONGO_URI`, `JWT_SECRET`, and `CLOUDINARY_*` credentials.
+
+---
+
+That's it! Now you have an authentication template that you can easily adapt and use for your future projects.
+
+---
+
+### Summary of Key Changes:
+1. **Frontend:** The **axios base URL** is hardcoded in the frontend to `http://localhost:5000`, no need for `.env.local`.
+2. **Backend:** The `.env` configuration includes database and Cloudinary credentials.
+
+Feel free to customize it further and use it for your projects!
