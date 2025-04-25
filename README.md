@@ -147,4 +147,4 @@ JWT_SECRET=your-jwt-secret
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by Yashodeep.
